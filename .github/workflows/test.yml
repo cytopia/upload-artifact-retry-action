@@ -1,0 +1,96 @@
+---
+name: test
+on:
+  pull_request:
+
+jobs:
+  test-normal:
+    name: test-normal
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Create artifact
+        id: file
+        shell: bash
+        run: |
+          PRE_RAND="$( ${RAND} | md5sum | head -c 20;  )"
+          PRE_DATE="$( date '+%s' )"
+          NAME="${PRE_RAND}-${PRE_DATE}.txt"
+          echo "somedata" > "${NAME}"
+          echo "::set-output name=path::${NAME}"
+
+      - name: upload artifact
+        uses: ./
+        with:
+          name: ${{ steps.file.outputs.path }}
+          path: ${{ steps.file.outputs.path }}
+
+
+  test-pre-post-command:
+    name: test-pre-post-command
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Create artifact
+        id: file
+        shell: bash
+        run: |
+          PRE_RAND="$( ${RAND} | md5sum | head -c 20;  )"
+          PRE_DATE="$( date '+%s' )"
+          NAME="${PRE_RAND}-${PRE_DATE}.txt"
+          echo "somedata" > "${NAME}"
+          echo "::set-output name=path::${NAME}"
+
+      - name: upload artifact
+        id: upload
+        uses: ./
+        with:
+          name: ${{ steps.file.outputs.path }}
+          path: ${{ steps.file.outputs.path }}
+          post_command: |
+            ls -lap {{download_path}}
+
+
+  test-retry:
+    runs-on: ubuntu-latest
+    name: test-retry
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Try to fail and retry
+      - name: upload docker image
+        continue-on-error: true
+        id: upload-1
+        uses: ./
+        with:
+          name: php-fpm-8.1-work
+          path: php-fpm-8.1-work
+          pre_command: |
+            docker save devilbox/php-fpm:8.1-work | gzip
+          post_command: |
+            docker load -i {{download_path}}
+
+      - name: evaluate success
+        run: |
+          echo "OUTCOME: ${OUTCOME}"
+          if [ "${OUTCOME}" = "failure" ]; then
+            true
+          else
+            false
+          fi
+        env:
+          OUTCOME: ${{ steps.upload-1.outcome }}
