@@ -1,7 +1,7 @@
 # Upload artifact retry action
 
 [![GitHub release](https://img.shields.io/github/release/cytopia/upload-artifact-retry-action.svg?logo=github)](https://github.com/cytopia/upload-artifact-retry-action/releases/latest)
-[![GitHub marketplace](https://img.shields.io/badge/marketplace-upload--artifact--retry--action-blue?logo=github)](https://github.com/marketplace/actions/upload-artifact-retry-action)
+[![GitHub marketplace](https://img.shields.io/badge/marketplace-upload--artifact--retry-blue?logo=github)](https://github.com/marketplace/actions/upload-artifact-retry)
 [![](https://img.shields.io/badge/github-cytopia%2Fupload--artifact--retry--action-red.svg?logo=github)](https://github.com/cytopia/upload-artifact-retry-action "github.com/cytopia/upload-artifact-retry-action")
 [![test](https://github.com/cytopia/upload-artifact-retry-action/actions/workflows/test.yml/badge.svg)](https://github.com/cytopia/upload-artifact-retry-action/actions/workflows/test.yml)
 
@@ -54,7 +54,7 @@ jobs:
           echo "::set-output name=path::${NAME}"
 
       - name: upload artifact
-        uses: cytopia/upload-artifact-retry-action@v0.1.0
+        uses: cytopia/upload-artifact-retry-action@v0.2.0
         with:
           name: ${{ steps.file.outputs.path }}
           path: ${{ steps.file.outputs.path }}
