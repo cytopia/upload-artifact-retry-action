@@ -1,0 +1,81 @@
+---
+# https://help.github.com/en/articles/metadata-syntax-for-github-actions
+name: 'upload-artifact-retry'
+description: "GitHub Action retry wrapper for upload-artifact-verify."
+author: 'cytopia'
+branding:
+  icon: 'code'
+  color: 'red'
+
+inputs:
+  name:
+    description: 'The artifact name.'
+    required: true
+  path:
+    description: 'The local file to upload.'
+    required: true
+  pre_command:
+    description: 'A bash command to execute before uploading the artifact (e.g.: to create the artifact)'
+    required: false
+    default: ''
+  post_command:
+    description: 'A bash command to execute after downloading the artifact (e.g.: to verify it is the desired file)'
+    required: false
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: upload-artifact-verify (try-1)
+      id: upload-1
+      uses: cytopia/upload-artifact-verify-action@v0.1.3
+      continue-on-error: true
+      with:
+        name: ${{ inputs.name }}
+        path: ${{ inputs.path }}
+        pre_command: ${{ inputs.pre_command }}
+        post_command: ${{ inputs.post_command }}
+
+    - name: upload-artifact-verify (try-2)
+      id: upload-2
+      uses: cytopia/upload-artifact-verify-action@v0.1.3
+      continue-on-error: true
+      with:
+        name: ${{ inputs.name }}
+        path: ${{ inputs.path }}
+        pre_command: ${{ inputs.pre_command }}
+        post_command: ${{ inputs.post_command }}
+      if: ${{ steps.upload-1.outcome == 'failure' }}
+
+    - name: upload-artifact-verify (try-3)
+      id: upload-3
+      uses: cytopia/upload-artifact-verify-action@v0.1.3
+      continue-on-error: true
+      with:
+        name: ${{ inputs.name }}
+        path: ${{ inputs.path }}
+        pre_command: ${{ inputs.pre_command }}
+        post_command: ${{ inputs.post_command }}
+      if: ${{ steps.upload-2.outcome == 'failure' }}
+
+    - name: upload-artifact-verify (try-4)
+      id: upload-4
+      uses: cytopia/upload-artifact-verify-action@v0.1.3
+      continue-on-error: true
+      with:
+        name: ${{ inputs.name }}
+        path: ${{ inputs.path }}
+        pre_command: ${{ inputs.pre_command }}
+        post_command: ${{ inputs.post_command }}
+      if: ${{ steps.upload-3.outcome == 'failure' }}
+
+    - name: upload-artifact-verify (try-5)
+      id: upload-5
+      uses: cytopia/upload-artifact-verify-action@v0.1.3
+      with:
+        name: ${{ inputs.name }}
+        path: ${{ inputs.path }}
+        pre_command: ${{ inputs.pre_command }}
+        post_command: ${{ inputs.post_command }}
+      if: ${{ steps.upload-4.outcome == 'failure' }}
