@@ -5,7 +5,7 @@
 [![](https://img.shields.io/badge/github-cytopia%2Fupload--artifact--retry--action-red.svg?logo=github)](https://github.com/cytopia/upload-artifact-retry-action "github.com/cytopia/upload-artifact-retry-action")
 [![test](https://github.com/cytopia/upload-artifact-retry-action/actions/workflows/test.yml/badge.svg)](https://github.com/cytopia/upload-artifact-retry-action/actions/workflows/test.yml)
 
-This action allows you to upload an artifact with retries in case the upload has failed. It wraps [upload-artifact-verify-action](https://github.com/cytopia/upload-artifact-verify-action) and retires it.
+This action allows you to upload an artifact with retries in case the upload has failed. It wraps [upload-artifact-verify-action](https://github.com/cytopia/upload-artifact-verify-action) and retries it.
 
 
 ## :arrow_forward: Inputs
@@ -54,7 +54,7 @@ jobs:
           echo "::set-output name=path::${NAME}"
 
       - name: upload artifact
-        uses: cytopia/upload-artifact-retry-action@v0.2.0
+        uses: cytopia/upload-artifact-retry-action@v0.1.2
         with:
           name: ${{ steps.file.outputs.path }}
           path: ${{ steps.file.outputs.path }}
