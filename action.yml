@@ -29,7 +29,7 @@ runs:
 
     - name: upload-artifact-verify (try-1)
       id: upload-1
-      uses: cytopia/upload-artifact-verify-action@v0.1.3
+      uses: cytopia/upload-artifact-verify-action@v0.1.5
       continue-on-error: true
       with:
         name: ${{ inputs.name }}
@@ -39,7 +39,7 @@ runs:
 
     - name: upload-artifact-verify (try-2)
       id: upload-2
-      uses: cytopia/upload-artifact-verify-action@v0.1.3
+      uses: cytopia/upload-artifact-verify-action@v0.1.5
       continue-on-error: true
       with:
         name: ${{ inputs.name }}
@@ -50,7 +50,7 @@ runs:
 
     - name: upload-artifact-verify (try-3)
       id: upload-3
-      uses: cytopia/upload-artifact-verify-action@v0.1.3
+      uses: cytopia/upload-artifact-verify-action@v0.1.5
       continue-on-error: true
       with:
         name: ${{ inputs.name }}
@@ -61,7 +61,7 @@ runs:
 
     - name: upload-artifact-verify (try-4)
       id: upload-4
-      uses: cytopia/upload-artifact-verify-action@v0.1.3
+      uses: cytopia/upload-artifact-verify-action@v0.1.5
       continue-on-error: true
       with:
         name: ${{ inputs.name }}
@@ -72,7 +72,7 @@ runs:
 
     - name: upload-artifact-verify (try-5)
       id: upload-5
-      uses: cytopia/upload-artifact-verify-action@v0.1.3
+      uses: cytopia/upload-artifact-verify-action@v0.1.5
       with:
         name: ${{ inputs.name }}
         path: ${{ inputs.path }}
