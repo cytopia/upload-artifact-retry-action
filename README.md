@@ -78,19 +78,21 @@ updates:
 
 ## :octocat: [cytopia](https://github.com/cytopia) GitHub Actions
 
-| Name                            | Description |
-|---------------------------------|-------------|
-| [docker-tag-action]             | Determines Docker tags based on git branch, commit or git tag |
-| [git-ref-matrix-action]         | Create stringified JSON list of git refs to be used as a build matrix |
-| [shell-command-retry-action]    | Retries shell commands to avoid failing pipelines due to network issues |
-| [upload-artifact-verify-action] | Upload artifact and verifies it by downloading it again |
-| [upload-artifact-retry-action]  | Retries `upload-artifact-verify-action` |
+| Name                             | Description |
+|----------------------------------|-------------|
+| [docker-tag-action]              | Determines Docker tags based on git branch, commit or git tag |
+| [git-ref-matrix-action]          | Create stringified JSON list of git refs to be used as a build matrix |
+| [shell-command-retry-action]     | Retries shell commands to avoid failing pipelines due to network issues |
+| [upload-artifact-verify-action]  | Upload artifact and verifies it by downloading it again |
+| [upload-artifact-retry-action]   | Retries `upload-artifact-verify-action` |
+| [download-artifact-retry-action] | Download artifact with retry functionality |
 
 [docker-tag-action]: https://github.com/cytopia/docker-tag-action
 [git-ref-matrix-action]: https://github.com/cytopia/git-ref-matrix-action
 [shell-command-retry-action]: https://github.com/cytopia/shell-command-retry-action
 [upload-artifact-verify-action]: https://github.com/cytopia/upload-artifact-verify-action
 [upload-artifact-retry-action]: https://github.com/cytopia/upload-artifact-retry-action
+[download-artifact-retry-action]: https://github.com/cytopia/download-artifact-retry-action
 
 
 ## :page_facing_up: License
